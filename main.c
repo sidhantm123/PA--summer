@@ -14,14 +14,14 @@ int is_empty(struct window* head){
 
 struct window* open(struct window* head, int value){
     if(is_empty(head)){
-        head = (struct window*)malloc(sizeof(struct window*));
+        head = (struct window*)malloc(sizeof(struct window));
         head->next = NULL;
         head->value = value;
         printf("%d\n", value);
         return head;
     }
     else{
-        struct window* new_head = (struct window*)malloc(sizeof(struct window*));
+        struct window* new_head = (struct window*)malloc(sizeof(struct window));
         new_head->next = head;
         new_head->value = value;
         printf("%d\n", value);
@@ -86,13 +86,10 @@ struct window* switch_focus(struct window* head, int value){
     }
 
     if (prev != NULL) {
-        prev->next = head;
-        struct window* temp = head->next;
-        head->next = curr->next;
-        curr->next = temp;
-        head = curr;
+        prev->next = curr->next;
+        curr->next = head;
     }
-    
+    head = curr;
     printf("%d\n", head->value);
     return head;
 }
